@@ -1,0 +1,27 @@
+# OS
+Thumbs.db
+desktop.ini
+.DS_Store
+
+# FreeCAD / CAD temp + backup
+*.fcstd1
+*.orig
+*~
+backup/
+
+# Build / export scratch
+*.tmp
+*.temp
+build/
+dist/
+
+# Python
+__pycache__/
+*.pyc
+.venv/
+venv/
+
+# Editors / IDE
+.vscode/
+.idea/
+*.swp
