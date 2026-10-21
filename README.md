@@ -1,25 +1,42 @@
 # Plasma table — project
 
 Plasma cutting table for Uitvindersgilde (Hof van Cartesius, Utrecht).
-Design phase, started 2026-10-20.
+Design phase, started 2026-10-20. Customer spec sheet: `Plasma Table Constraints.ods` (2026-10-21).
 
 ## Layout
 - `drawings/`    — FreeCAD models, drawings, vendor STEP files
-- `calc/`        — sizing calcs & comparisons (axis-sizing.md, etc.)
+- `calc/`        — sizing calcs & comparisons (axis-sizing.md, z-axis-spindle.md)
 - `docs/`        — specs, decisions log, math-derivation.md
 - `reference/`   — vendor datasheets, torque curves
 - `spreadsheet/` — `constraints.xlsx` (customer + project constraints, live formulas)
 
+## Customer spec (from the ODS, 2026-10-21)
+| Item | Value |
+|---|---|
+| **Torch (customer buys)** | Hypertherm **Powermax 65** with CPC port |
+| **Software** | LinuxCNC **Qtplasmac** + **SheetCAM** (nesting/material settings), local at the machine |
+| **Motion controller** | Mesa **7i76e** (Ethernet FPGA motion, LinuxCNC) |
+| **THC** | Mesa **THCAD-5** (ohmic sensing, initial touch-off) + **THCAD-10** (voltage sensing, real-time THC) |
+| **Min sheet to cut** | **1000 × 2000 mm** ("bigger is better") |
+| **Outer max dimensions** | **X 1600 × Y 2500** (customer envelope) |
+| **Material on hand** | 1700 mm |
+| **Z drilling** | small holes + spot drilling, 6 mm max into steel (2000 N feed) |
+| **EMI** | high — plasma generates lots of electrical noise (design must tolerate) |
+
+**Desired features (customer):** plasma + THC + water table · break-away (part collision) ·
+scribing tool (pneumatic/electric) · drilling + spot drilling · high/adjustable Z (curved
+surfaces) · 1000×2000 min sheets · light milling ("ballscrew vs belts" — customer's own
+suggestion) · **4th axis for tube plasma** · more (e.g. gear tooth cutter).
+
 ## Core spec (draft)
 - X + Y: HG20 linear rails, 2 rails × 2 blocks per axis
-- Drive: ballscrew vs rack & pinion (decision in progress → calc/axis-sizing.md)
+- Drive: **rack & pinion (long axis, 15 m/min) vs ballscrew (precision)** — `calc/axis-sizing.md`
 - Motors: StepperOnline closed-loop NEMA 24 (4 Nm) under evaluation
-- Speed: 15 m/min travel (plasma cut speed)
-- Bonus: light machining/drilling of soft metals (brass, alu) on X
+- Z: linear bearings + self-locking lead screw + thrust bearing + brushless spindle (Flipsky) — `calc/z-axis-spindle.md`
 - Adjustable table height
 
 ## Math (manual-checkable)
-Full step-by-step derivations: `docs/math-derivation.md`. Core numbers here:
+Full step-by-step derivations: `docs/math-derivation.md`. Core numbers here.
 
 **X/Y feed force** (Kc = 2500 N/mm² mild steel, brass 1500; feed ≈ 0.4 × tangential;
 chip area A = fz·ap·e):
@@ -29,45 +46,45 @@ engraving:  0.4 × 2500 × 0.03 × 1.0 × 0.7  ≈ 21 N
 light mill: 0.4 × 2500 × 0.05 × 3.0 × 0.7  ≈ 105 N
 slotting:   0.4 × 2500 × 0.05 × 3.0 × 0.9  ≈ 135 N   ← X/Y envelope ≈ 20–150 N
 ```
+Force is tiny vs a 4 Nm motor — **force is never the decider.**
 
-**Drive capability** (4 Nm NEMA 24):
+**The real constraint is the LONG-AXIS ballscrew critical speed** (customer outer max
+X1600×Y2500 → ~2500 mm travel → ~2800 mm screw span):
 ```
-ballscrew:  F = 2πηT/L   →  150 N @ 20 mm lead needs T = 0.53 Nm (13 % of 4)
-rack:       F = T/(m·z/2) →  m1 z12: 150 N needs 0.90 Nm (22 %); 15 m/min @ 398 rpm
-speed cap:  encoder 60 kHz / 4000 CPR = 900 rpm hard ceiling
+Nc = K × D / L² × 1e7   rpm        (K end-support: fixed-supp 15.1, fixed-fixed 21.9)
+L = 2800 mm, D = 25 mm, K = 15.1  →  Nc ≈ 482 rpm
+20 mm lead @ 15 m/min needs 750 rpm  →  750 / 482 = 1.56×  CRITICAL  →  FAILS the 50% rule
 ```
-Both drives clear every corner with ≥1.5× margin → **decision is precision
-(ballscrew) vs simplicity/cost (rack), not capability.** 2000 N is Z-only.
+So at the customer's real span a ballscrew **cannot** safely do 15 m/min plasma unless you
+go large-diameter, add a mid-span bearing, or accept slower rapids. **A rack & pinion has no
+critical-speed limit** — for the long X axis at plasma speed the rack is the safer choice.
+Ballscrew wins where precision/low-backlash matters (short axis, engraving/brass).
 
-> **Live version:** `spreadsheet/constraints.xlsx` — same formulas as live Excel cells.
-> Edit any YELLOW input (bed, Kc, lead, …) and every verdict recomputes. It also flags the two bed-size constraints: the 900 rpm encoder cap forces a ≥20 mm lead (or rack) for 15 m/min, and a 20 mm lead on a ~2000 mm span needs ≥25 mm dia or a mid-support.
+> **Live version:** `spreadsheet/constraints.xlsx` — every force/speed/margin is a live formula.
+> Edit the YELLOW inputs (K, D, lead, span, Kc…) and all verdicts recompute. It now reflects
+> the customer ODS (Powermax 65, 1000×2000 min / 1600×2500 outer / 1700 on hand) and flags
+> the long-axis critical-speed FAIL on every ballscrew lead.
 
-## Reference files acquired (2026-10-21) — in `drawings/`
-- `drawings/24HS40-5004D-E1000.STEP` — **motor STEP model, 8.0 MB** (OMC/StepperOnline, login-free)
-- `drawings/24HS40-5004D-E1000_Full_Datasheet.pdf` — full datasheet (OMC)
-- `drawings/24HS40-5004D-E1000_Torque_Curve.pdf` — torque curve (OMC, SVG already here)
-- `drawings/hiwin_Linear_Guideway_E1_catalog.pdf` — full HG-series catalog, 17.6 MB (Hiwin official; scanned-image PDF, dims by visual lookup)
-- `drawings/hiwin_HG_series_catalog.pdf` — HG-Info intro catalog (Hiwin official)
-- HGR20/HGH20 **STEP models: not downloaded** — GrabCAD, Hiwin CAD portal, 3Dfindit all require login. Decision: model from catalog dims in FreeCAD.
+## Reference files acquired — in `drawings/`
+- `24HS40-5004D-E1000.STEP` (8 MB motor model), `_Full_Datasheet.pdf`, `_Torque_Curve.pdf` (OMC)
+- `hiwin_Linear_Guideway_E1_catalog.pdf` (17.6 MB, HG series), `hiwin_HG_series_catalog.pdf`
+- HGR20/HGH20 STEP models: not downloaded (all CAD portals need login) — model from catalog dims
 
 ## Decisions log
-- 2026-10-20: Project folder created. Drive sizing started (24HS40 NEMA 24).
-- 2026-10-20: Corrected sizing (v2). Cut force is ~38 N (not 2000 N) → torque is
-  trivial. The real constraint is **speed vs lead**: 15 m/min needs ≥20 mm ballscrew
-  lead (24HS40 encoder caps at 900 rpm). 5 mm lead tops out ~6 m/min (matches
-  colleague's Hypertherm 45 table). Corner decel is fine (stops <2 mm). Recommend
-  20 mm lead ballscrew X for cutting + drilling; 5 mm lead only if precision-first.
-  See calc/axis-sizing.md.
-- 2026-10-20: Z axis = drilling/feed axis. 2000 N is the **Z downward feed force**
-  (not X). Z: 2x HG20 + **2.5 mm lead screw** (self-locking, NEMA24 OK) +
-  **thrust ball bearing 51217** (the "cone + cylinder" lathe-type bearing, 96 kN C,
-  2.1% utilisation). Spindle: **Flipsky brushless off-axis, belt-reduced**,
-  ~1300 rpm, ~1–2.5 Nm, ~150–300 W for 6 mm HSS in steel. 6 mm max hole.
-  Tool changer (plasma+drill) shares one Z axis. See calc/z-axis-spindle.md.
-- 2026-10-21: Sizing v3 (two-regime). User confirmed: 15 m/min needed **only for
-  plasma** (≈35 N, no push); cutting/embossing runs **very slow** and needs force
-  (20–150 N, derived from Kc=2500 N/mm² × chip area). Both regimes validated:
-  ballscrew 20 mm lead AND rack m1 z12 clear every corner ≥1.5× (typical ≥4×).
-  **Capability is not the decider** — decision is precision/backlash (ballscrew)
-  vs simplicity/cost/full-length X (rack). 2000 N remains Z-only. Full manual
-  math in docs/math-derivation.md + README math section.
+- 2026-10-20: v1 sizing. 24HS40 NEMA 24, encoder caps 900 rpm.
+- 2026-10-20: **v2 correction.** Cut force is ~38 N (not 2000 N) → X/Y torque trivial. Real
+  constraint = speed vs lead. 2000 N reclassified as **Z drilling feed** (downward), not X/Y.
+- 2026-10-20: **Z axis** = drilling/feed axis. 2× HG20 + **2.5 mm self-locking lead screw** +
+  **thrust bearing 51217** (96 kN, 2% utilisation) + Flipsky brushless spindle, ~1300 rpm,
+  ~1–2.5 Nm, 6 mm max hole. Tool changer (plasma+drill) shares one Z. `calc/z-axis-spindle.md`.
+- 2026-10-21: **v3 two-regime.** 15 m/min needed **only for plasma** (~35 N, no push);
+  cutting/embossing runs **very slow** and needs force (20–150 N). Both drives pass force/torque
+  ≥1.5× → capability is not the decider; it's precision (ballscrew) vs simplicity (rack).
+  Full math in `docs/math-derivation.md`.
+- 2026-10-21: **Customer ODS ingested** (`Plasma Table Constraints.ods`). Torch is **Powermax 65**
+  (customer supplies), control = **LinuxCNC Qtplasmac + SheetCAM + Mesa 7i76e + THCAD-5/10**.
+  Envelope is **1000×2000 min / X1600×Y2500 outer** (the chat's "1700×1700" was material on hand,
+  not the envelope). **Key correction:** at the real ~2500 mm long axis, the ballscrew
+  **critical speed is the binding constraint** for 15 m/min plasma (750 rpm needed vs ~482 rpm
+  critical, D25/fixed-supported) → **rack preferred for the long axis**, ballscrew for the
+  precision/short axis. Constraints spreadsheet now reflects all ODS numbers + this finding.
