@@ -8,7 +8,7 @@ Design phase, started 2026-10-20.
 - `calc/`        — sizing calcs & comparisons (axis-sizing.md, etc.)
 - `docs/`        — specs, decisions log, math-derivation.md
 - `reference/`   — vendor datasheets, torque curves
-- `spreadsheet/` — project tracking spreadsheet
+- `spreadsheet/` — `constraints.xlsx` (customer + project constraints, live formulas)
 
 ## Core spec (draft)
 - X + Y: HG20 linear rails, 2 rails × 2 blocks per axis
@@ -38,6 +38,9 @@ speed cap:  encoder 60 kHz / 4000 CPR = 900 rpm hard ceiling
 ```
 Both drives clear every corner with ≥1.5× margin → **decision is precision
 (ballscrew) vs simplicity/cost (rack), not capability.** 2000 N is Z-only.
+
+> **Live version:** `spreadsheet/constraints.xlsx` — same formulas as live Excel cells.
+> Edit any YELLOW input (bed, Kc, lead, …) and every verdict recomputes. It also flags the two bed-size constraints: the 900 rpm encoder cap forces a ≥20 mm lead (or rack) for 15 m/min, and a 20 mm lead on a ~2000 mm span needs ≥25 mm dia or a mid-support.
 
 ## Reference files acquired (2026-10-21) — in `drawings/`
 - `drawings/24HS40-5004D-E1000.STEP` — **motor STEP model, 8.0 MB** (OMC/StepperOnline, login-free)
