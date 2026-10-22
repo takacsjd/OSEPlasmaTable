@@ -25,3 +25,8 @@ venv/
 .vscode/
 .idea/
 *.swp
+
+# LibreOffice lock files
+.~lock.*#
+*.tmp
+~$*
