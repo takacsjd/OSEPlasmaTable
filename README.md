@@ -117,3 +117,10 @@ on the Inputs sheet). With defaults (1700×1700×100 mm water ≈ 289 kg, 250 kg
   at set heights; passive safety (CW < 0.9 × empty weight) so a drained bed can't slam into the
   torch. X/Y fixed to table; plasma head keeps its own large Z. `constraints.xlsx` → Water-Table
   sheet (all checks PASS with defaults: ~78 kg manual lift, cable SF 18×, pin SF 9.5×).
+  **Accepted tradeoff:** table is DRAINED before raising (safer — light table, easy lift;
+  full table only lowers, CW-assisted).
+- 2026-10-21: **Context: one-off job shop, NOT a production machine.** Table height/position
+  adjustments are done manually for fixturing per process — no need for powered/automatic
+  positioning. **Tool changing is MANUAL for now** (plasma ↔ drill ↔ scribe ↔ mill),
+  may be automated later — design the Z head/tool interface so a manual change is quick
+  and repeatable, but don't build an ATC yet.
