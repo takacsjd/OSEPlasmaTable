@@ -65,6 +65,30 @@ Ballscrew wins where precision/low-backlash matters (short axis, engraving/brass
 > the customer ODS (Powermax 65, 1000×2000 min / 1600×2500 outer / 1700 on hand) and flags
 > the long-axis critical-speed FAIL on every ballscrew lead.
 
+## Water table + table height (2026-10-21)
+Water table for kerf cooling (prevents warping) and arc damping, with **fill pump + drain**,
+and a **raise/lower table** for access:
+- **Guides:** telescoping square tube — smaller tube inside the main column, bearings guide it
+- **Lift:** pulley + steel cable + **counterweight** (assist, not full lift); raise/lower is
+  designed to work with the table **full of water**
+- **Pins** fix the table at set positions (cable can slack off — no power/brake needed at rest)
+- **Safety stop:** counterweight < 0.9 × EMPTY table weight → a drained table can **never**
+  self-lift into the workpiece/torch (passive protection, no electronics)
+- **Axes:** X/Y are fixed to the table — the whole table moves; the plasma head keeps its
+  own **large Z travel**
+
+**Live calcs** in `spreadsheet/constraints.xlsx` → **Water-Table** sheet (all yellow inputs
+on the Inputs sheet). With defaults (1700×1700×100 mm water ≈ 289 kg, 250 kg structure):
+| Check | Value | Verdict |
+|---|---|---|
+| Full lifting load | ≈ 530 kg | — |
+| Max counterweight (safety) | 225 kg (< empty 250 kg) | **PASS** no self-lift |
+| Manual force, full table (4:1 MA) | ≈ 78 kg equiv | **PASS** ≤ 100 kg |
+| Cable SF (6 mm, 24 kN) | ≈ 18× | **PASS** ≥ 10 |
+| Pin SF (2 × M12) | ≈ 9.5× | **PASS** ≥ 5 |
+| Fill time (50 L/min pump) | ≈ 6 min | — |
+| Drain | gravity + sump | — |
+
 ## Reference files acquired — in `drawings/`
 - `24HS40-5004D-E1000.STEP` (8 MB motor model), `_Full_Datasheet.pdf`, `_Torque_Curve.pdf` (OMC)
 - `hiwin_Linear_Guideway_E1_catalog.pdf` (17.6 MB, HG series), `hiwin_HG_series_catalog.pdf`
@@ -88,3 +112,8 @@ Ballscrew wins where precision/low-backlash matters (short axis, engraving/brass
   **critical speed is the binding constraint** for 15 m/min plasma (750 rpm needed vs ~482 rpm
   critical, D25/fixed-supported) → **rack preferred for the long axis**, ballscrew for the
   precision/short axis. Constraints spreadsheet now reflects all ODS numbers + this finding.
+- 2026-10-21: **Water table + height lift.** Water table (cooling/anti-warp, fill pump + drain);
+  table raise/lower via telescoping square-tube guides + pulley/cable/counterweight, pin-fixed
+  at set heights; passive safety (CW < 0.9 × empty weight) so a drained bed can't slam into the
+  torch. X/Y fixed to table; plasma head keeps its own large Z. `constraints.xlsx` → Water-Table
+  sheet (all checks PASS with defaults: ~78 kg manual lift, cable SF 18×, pin SF 9.5×).
