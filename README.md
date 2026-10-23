@@ -124,3 +124,21 @@ on the Inputs sheet). With defaults (1700×1700×100 mm water ≈ 289 kg, 250 kg
   positioning. **Tool changing is MANUAL for now** (plasma ↔ drill ↔ scribe ↔ mill),
   may be automated later — design the Z head/tool interface so a manual change is quick
   and repeatable, but don't build an ATC yet.
+- 2026-10-22: **Plasma torch + arc-voltage THC documented.** Torch confirmed as
+  **Hypertherm Powermax 65 (CPC port)** with **Duramax 180° full-length machine torch** —
+  a CNC torch with its **own 32-pitch gear rack** on the positioning sleeve (32 pitch →
+  module 0.8 mm) + **cap-sensor switch** (breakaway, on wishlist). Customer's "rack gear
+  attached" observation is correct. Z drive: **torch-rack + 32-pitch pinion (recommended)**
+  vs ballscrew. Arc voltage: **no direct high-voltage tap** — Powermax CPC arc-sense line
+  through **external divider** into **Mesa THCAD-10** (0–10 V, ~1.3 MΩ series R for 139 V arc)
+  + **THCAD-5** for ohmic touch-off. Specs: `drawings/powermax65_cnc_torch_spec.md`,
+  `powermax65_operator_manual_806650.pdf` (6 MB), `mesa_thcad_manual.pdf` (105 KB).
+- 2026-10-22: **Control architecture decided — keep customer spec (Stack A: LinuxCNC + Mesa
+  7i76e + THCAD-10/5).** Corrected misconception: LinuxCNC and an ESP32/GRBL firmware are
+  *alternative* controllers, NOT a master/slave pair — LinuxCNC does not stream G-code to an
+  ESP32 for real-time control (two motion controllers would fight over the steppers). Chose
+  LinuxCNC+Mesa over FluidNC/ESP32 because (1) native integrated plasma THC, (2) hard real-time,
+  (3) isolated arc-voltage sensing is literally the THCAD (2500 V isolated, 0–10 V out, external
+  ~1.3 MΩ divider). 4–20 mA is the wrong mental model (it's a *transmission* standard, not a
+  sensing one). M5Stack is a poor fit in Stack A → use a local 7–10" touch panel on the control
+  PC. Full analysis: `calc/control-architecture.md`.

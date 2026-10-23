@@ -5,6 +5,7 @@ desktop.ini
 
 # FreeCAD / CAD temp + backup
 *.fcstd1
+*.FCBak
 *.orig
 *~
 backup/
