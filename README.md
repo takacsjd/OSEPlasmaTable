@@ -89,6 +89,18 @@ on the Inputs sheet). With defaults (1700×1700×100 mm water ≈ 289 kg, 250 kg
 | Fill time (50 L/min pump) | ≈ 6 min | — |
 | Drain | gravity + sump | — |
 
+### Water-tank dimensions (2026-10-23)
+- **Bed:** 6 mm steel, **1712×1712** internal base
+- **Internal depth: 140 mm** (sensible: shallow end of commercial 150–600 mm range; head ≈ 1.4 kPa — 6 mm walls have ~100× margin)
+- **Slat tops sit 25 mm below the rim (~115 mm)** — one groove height gives all three modes:
+  1. Normal cutting: water 3–6 mm below the plate top (industry standard band)
+  2. Anti-warp: raise level until water touches the plate bottom
+  3. Submerge ~25 mm above plate bottom (within ESAB's 2–3 in max band)
+- **Slat spec:** 40 mm deep × 2 mm thick fingers, cutout slides into the bed; spacing ≤ 50 mm. 2 mm is on the flimsy side under a full 6 mm plate — use 3 mm if available. **Shark-tooth style point contact** with the workpiece (narrow V-teeth on the top edge, not flat contact) — sheet rides on discrete points, water stays below the cut zone, dross falls through.
+- **Water:** ≈ 390 L / **~390 kg** at 140 mm (was 289 kg at 100 mm) — **check the lift/leg load budget** (Water-Table sheet currently assumes 100 mm)
+- **Torch clearance:** torch standoff 1.5–3 mm to plate → always ≥ 110 mm above the water; arc never interacts with the water
+- **Drain:** valve at the lowest point of the floor pan — 390 kg is painful to slosh out
+
 ## Reference files acquired — in `drawings/`
 - `24HS40-5004D-E1000.STEP` (8 MB motor model), `_Full_Datasheet.pdf`, `_Torque_Curve.pdf` (OMC)
 - `hiwin_Linear_Guideway_E1_catalog.pdf` (17.6 MB, HG series), `hiwin_HG_series_catalog.pdf`
