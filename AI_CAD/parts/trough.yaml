@@ -1,0 +1,111 @@
+# NOTE: measured block auto-updated by tools/build_table.py
+part_id: PART-TROUGH
+name: Plasma table trough (water bed)
+status: active
+role: anchor
+description: 'Open-top welded steel box that holds water. The torch moves above it; water quenches the
+  cut. The internal clear area defines the work envelope. Drain at the lowest point of the floor.
+
+  '
+material: steel
+coordinate_convention: Floor center = origin, Z up, rim at Z = depth
+parameters:
+  clear_x:
+    value: 1700
+    unit: mm
+    constraint_id: CON-TROUGH-CLEAR
+  clear_y:
+    value: 1700
+    unit: mm
+    constraint_id: CON-TROUGH-CLEAR
+  depth:
+    value: 140
+    unit: mm
+    constraint_id: CON-TROUGH-DEPTH
+  wall:
+    value: 6
+    unit: mm
+    constraint_id: CON-TROUGH-WALL
+  drain_radius:
+    value: 25
+    unit: mm
+  drain_location:
+    value:
+    - -800
+    - -800
+    unit: mm
+    note: Low corner of the floor
+features:
+- feature_id: FEAT-TROUGH-SHELL
+  name: Open-top box shell
+  required: true
+  kind: box_shell
+  parameters:
+    outer: clear + 2*wall on each axis
+    inner: clear x clear x depth, top open
+- feature_id: FEAT-TROUGH-DRAIN
+  name: Drain boss + through-hole
+  required: true
+  kind: cylinder
+  parameters:
+    boss_radius: drain_radius
+    boss_height: 20
+    hole_radius: drain_radius * 0.6
+    location: drain_location
+    through: true
+constraints:
+- id: CON-TROUGH-CLEAR
+  description: Internal clear width/depth for tool travel
+  value: 1700
+  unit: mm
+  operator: ==
+  priority: hard
+  status: confirmed
+  provenance: User spec 2026-10-26
+- id: CON-TROUGH-DEPTH
+  description: Internal water depth (floor to rim)
+  value: 140
+  unit: mm
+  operator: ==
+  priority: hard
+  status: confirmed
+  provenance: README water bed section
+- id: CON-TROUGH-WALL
+  description: Plate thickness
+  value: 6
+  unit: mm
+  operator: '>='
+  priority: preferred
+  status: confirmed
+  provenance: User spec 2026-10-20
+- id: CON-TROUGH-WATERTIGHT
+  description: Must be watertight (all seams welded)
+  priority: hard
+  status: confirmed
+  provenance: User spec 2026-10-26
+- id: CON-TROUGH-DRAIN
+  description: Drain at lowest point of floor
+  priority: hard
+  status: confirmed
+  provenance: README water bed section
+measured:
+  date: '2026-10-26'
+  bbox_mm:
+  - 1712.0
+  - 1712.0
+  - 146.0
+  mass_kg: 183.15
+  valid: true
+  water_capacity_L: 404.6
+  free_volume_with_grid_L: 387.3
+references:
+- path: ../README.md
+  note: Water bed / water tank section
+- path: ../calc/control-architecture.md
+  note: Control baseline
+- path: global.yaml
+  note: Material density, design rules
+provenance:
+  source: User conversation 2026-10-20 through 2026-10-26
+  built_by: Hermes Agent + FreeCAD 1.1.3 MCP bridge
+  last_measured: '2026-10-26'

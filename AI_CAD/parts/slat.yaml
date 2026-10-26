@@ -1,0 +1,156 @@
+# NOTE: measured block auto-updated by tools/build_table.py
+part_id: PART-SLAT
+name: Shark-tooth slat bar
+status: active
+role: workpiece_support
+description: 'Long steel bar running in Y, perpendicular to runners. Shark-tooth V-profile on the top
+  edge: narrow V-teeth create point contact with the workpiece so water stays below the cut zone and dross
+  falls through. Body drops through runner slits; runner captures from below.
+
+  '
+material: steel
+coordinate_convention: 'Local: Y along bar, X width, Z height. Assembly: X offset per instance'
+parameters:
+  length:
+    value: 1700
+    unit: mm
+    note: Spans the full clear width
+  width:
+    value: 30
+    unit: mm
+    constraint_id: CON-SLAT-WIDTH
+  body_bottom:
+    value: 55
+    unit: mm
+    note: Slat body bottom (matches runner bottom)
+  body_top:
+    value: 95
+    unit: mm
+    note: Slat body top (sits on runner top)
+  tooth_height:
+    value: 17
+    unit: mm
+    note: V-tooth band height; tips at 95 + 17 = 112
+  tooth_pitch:
+    value: 50
+    unit: mm
+    constraint_id: CON-SLAT-PITCH
+    note: Peak-to-peak along Y
+instances:
+- inst_id: INST-SLAT-0
+  placement:
+  - -750
+  - 0
+  - 0
+- inst_id: INST-SLAT-1
+  placement:
+  - -600
+  - 0
+  - 0
+- inst_id: INST-SLAT-2
+  placement:
+  - -450
+  - 0
+  - 0
+- inst_id: INST-SLAT-3
+  placement:
+  - -300
+  - 0
+  - 0
+- inst_id: INST-SLAT-4
+  placement:
+  - -150
+  - 0
+  - 0
+- inst_id: INST-SLAT-5
+  placement:
+  - 0
+  - 0
+  - 0
+- inst_id: INST-SLAT-6
+  placement:
+  - 150
+  - 0
+  - 0
+- inst_id: INST-SLAT-7
+  placement:
+  - 300
+  - 0
+  - 0
+- inst_id: INST-SLAT-8
+  placement:
+  - 450
+  - 0
+  - 0
+- inst_id: INST-SLAT-9
+  placement:
+  - 600
+  - 0
+  - 0
+- inst_id: INST-SLAT-10
+  placement:
+  - 750
+  - 0
+  - 0
+constraints:
+- id: CON-SLAT-WIDTH
+  description: Slat width (X)
+  value: 30
+  unit: mm
+  operator: <=
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+- id: CON-SLAT-TOOTH
+  description: Shark-tooth point contact with workpiece
+  priority: hard
+  status: confirmed
+  provenance: User spec 2026-10-23
+- id: CON-SLAT-PITCH
+  description: Tooth pitch (peak-to-peak)
+  value: 50
+  unit: mm
+  operator: <=
+  priority: hard
+  status: confirmed
+  provenance: Design choice 2026-10-26
+- id: CON-SLAT-TIP_CLEARANCE
+  description: Tooth tips below rim for tool clearance
+  value: 28
+  unit: mm
+  operator: '>='
+  priority: hard
+  status: confirmed
+  provenance: 'Derived: rim 140 - tip 112 = 28'
+- id: CON-SLAT-COUNT
+  description: Number of slats
+  value: 11
+  unit: count
+  priority: preferred
+  status: confirmed
+  provenance: 'Derived: 1700mm / 150mm pitch + 1'
+- id: CON-SLAT-PITCH_X
+  description: Slat spacing (X)
+  value: 150
+  unit: mm
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+measured:
+  date: '2026-10-26'
+  count: 11
+  mass_total_kg: 213.59
+  valid: true
+  tooth_tip_Z: 112.0
+  tip_below_rim_mm: 28.0
+references:
+- path: runner.yaml
+  note: Drops through runner slits
+- path: trough.yaml
+  note: Sits inside the trough
+- path: ../global.yaml
+  note: Material density
+provenance:
+  source: User spec 2026-10-26, shark-tooth added 2026-10-23
+  built_by: Hermes Agent + FreeCAD 1.1.3 MCP bridge
+  last_measured: '2026-10-26'

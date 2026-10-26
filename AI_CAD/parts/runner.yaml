@@ -1,0 +1,103 @@
+# NOTE: measured block auto-updated by tools/build_table.py
+part_id: PART-RUNNER
+name: Slat runner bar
+status: active
+role: structural
+description: 'Long steel bar running in X, spaced in Y. Full-height through-slits at each slat X position.
+  Slats drop through the slits from above; the runner body below the slat bottom captures and supports
+  them. Water and dross pass through the gaps between slats.
+
+  '
+material: steel
+coordinate_convention: 'Local: X along bar, Y width, Z height. Assembly: Y offset per instance'
+parameters:
+  length:
+    value: 1700
+    unit: mm
+    note: Spans the full clear width
+  width:
+    value: 40
+    unit: mm
+    constraint_id: CON-RUNNER-WIDTH
+  height:
+    value: 40
+    unit: mm
+    constraint_id: CON-RUNNER-HEIGHT
+  z_bottom:
+    value: 55
+    unit: mm
+    note: Runner bottom; top = 55 + 40 = 95
+  slit_clearance:
+    value: 2
+    unit: mm
+    note: Clearance each side of slat (slat 30 -> slot 34)
+  slit_count:
+    value: 11
+    unit: count
+    note: One per slat position
+instances:
+- inst_id: INST-RUNNER-0
+  placement:
+  - 0
+  - -500
+  - 0
+- inst_id: INST-RUNNER-1
+  placement:
+  - 0
+  - 0
+  - 0
+- inst_id: INST-RUNNER-2
+  placement:
+  - 0
+  - 500
+  - 0
+constraints:
+- id: CON-RUNNER-WIDTH
+  description: Bar width (Y)
+  value: 40
+  unit: mm
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+- id: CON-RUNNER-HEIGHT
+  description: Bar height (Z)
+  value: 40
+  unit: mm
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+- id: CON-RUNNER-SLIT
+  description: Full-height through-slits at each slat X position
+  priority: hard
+  status: confirmed
+  provenance: User spec 2026-10-26
+- id: CON-RUNNER-COUNT
+  description: Number of runners
+  value: 3
+  unit: count
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+- id: CON-RUNNER-SPACING
+  description: Runner spacing (Y)
+  value: 500
+  unit: mm
+  priority: preferred
+  status: confirmed
+  provenance: Design choice 2026-10-26
+measured:
+  date: '2026-10-26'
+  count: 3
+  mass_total_kg: 49.96
+  valid: true
+references:
+- path: trough.yaml
+  note: Runs inside the trough
+- path: slat.yaml
+  note: Slats drop through the slits
+- path: ../global.yaml
+  note: Material density
+provenance:
+  source: User spec 2026-10-26
+  built_by: Hermes Agent + FreeCAD 1.1.3 MCP bridge
+  last_measured: '2026-10-26'

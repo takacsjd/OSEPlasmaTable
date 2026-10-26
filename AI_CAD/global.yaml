@@ -1,0 +1,52 @@
+# global.yaml — Project-wide constraints, materials, design rules
+# Source of truth for shared values. Part YAMLs reference these.
+
+project: OSEPlasmaTable
+units:
+  length: mm
+  mass: kg
+  force: N
+  angle: deg
+  time: s
+
+materials:
+  steel:
+    name: structural steel
+    density_kg_m3: 7850
+
+design_rules:
+  - id: DR-001
+    rule: "Blank = unknown, never zero"
+    priority: hard
+    note: >
+      A missing value means "not yet specified", not "zero".
+      Never substitute 0 for an unknown dimension.
+
+  - id: DR-002
+    rule: "Do not promote a suggestion to a hard constraint"
+    priority: hard
+    note: >
+      A `preferred` constraint stays `preferred` until the user
+      explicitly confirms it. The agent must not upgrade tiers.
+
+  - id: DR-003
+    rule: "Measured geometry ≠ engineering validation"
+    priority: hard
+    note: >
+      A bounding-box check or interference test is a geometry check.
+      It is not a certification of strength, fatigue, thermal
+      performance, safety, or manufacturability.
+
+  - id: DR-004
+    rule: "One source of truth, one derived view"
+    priority: hard
+    note: >
+      YAML is the source. FCStd/STEP/renders are derived output.
+      Never hand-edit derived files. Regenerate from YAML.
+
+  - id: DR-005
+    rule: "All geometry is parametric"
+    priority: hard
+    note: >
+      Every dimension must be traceable to a named parameter
+      in the YAML. No magic numbers in build scripts.

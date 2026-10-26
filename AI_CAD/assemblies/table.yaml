@@ -1,0 +1,83 @@
+# assemblies/table.yaml — ASMB-TABLE: Plasma table assembly
+# The water bed: trough shell + runner grid + slat grid.
+# Defines the internal envelope for torch, gantry, and control.
+
+assembly_id: ASMB-TABLE
+name: Plasma table (water bed + grid)
+status: active
+description: >
+  The water bed assembly: trough shell + 3 runner bars + 11 slat bars.
+  The internal clear area (1700x1700) is the tool travel envelope.
+  Water fills the space below the grid; dross falls through.
+
+# --------------------------------------------------------------- instances
+instances:
+  - part: PART-TROUGH
+    count: 1
+    placement: [0, 0, 0]
+  - part: PART-RUNNER
+    count: 3
+    placements:
+      - [0, -500, 0]
+      - [0, 0, 0]
+      - [0, 500, 0]
+  - part: PART-SLAT
+    count: 11
+    pitch: 150
+    range: [-750, 750]
+
+# ------------------------------------------------------- fit requirements
+fit_requirements:
+  - between: [PART-SLAT, PART-RUNNER]
+    type: clearance
+    min_mm: 2
+    max_mm: null
+    note: >
+      Slat width 30mm passes through runner slit 34mm
+      (2mm clearance each side). Zero interference.
+
+  - between: [PART-SLAT, PART-TROUGH]
+    type: clearance
+    min_mm: 0
+    max_mm: null
+    note: "Slats inside trough; no wall contact"
+
+  - between: [PART-RUNNER, PART-TROUGH]
+    type: clearance
+    min_mm: 0
+    max_mm: null
+    note: "Runners inside trough; no wall contact"
+
+# ---------------------------------------------------------------- measured
+measured:
+  date: "2026-10-26"
+  total_mass_kg: 446.7
+  water_capacity_L: 404.6
+  free_volume_with_grid_L: 371.0
+  all_interference_mm3: 0.0
+  all_shapes_valid: true
+  screenshots:
+    - renders/trough_iso.png
+    - renders/trough_top.png
+    - renders/interlock_right.png
+  step: models/PlasmaTrough.step
+  fcstd: models/PlasmaTrough.FCStd
+
+# -------------------------------------------------------------- constraints
+constraints:
+  - id: CON-TABLE-ENVELOPE
+    description: Internal clear tool travel area
+    value: 1700
+    unit: mm
+    axis: [x, y]
+    priority: hard
+    status: confirmed
+  - id: CON-TABLE-WATERTIGHT
+    description: Assembly must hold water
+    priority: hard
+    status: confirmed
+
+# -------------------------------------------------------------- provenance
+provenance:
+  built_by: "Hermes Agent + FreeCAD 1.1.3 MCP bridge"
+  last_measured: "2026-10-26"
