@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "units": {
+    "length": "mm",
+    "mass": "kg",
+    "force": "N",
+    "angle": "deg",
+    "time": "s"
+  },
+  "coordinateConvention": "Z up; define machine X/Y orientation before assembly modeling.",
+  "targetEnvelope": {
+    "x": null,
+    "y": null,
+    "z": null,
+    "units": "mm",
+    "status": "unspecified"
+  },
+  "part": {
+    "part_id": "PART-TORCH",
+    "name": "Powermax 65 machine torch",
+    "description": "Customer-supplied Duramax 180-degree full-length machine torch.",
+    "role": "Plasma cutting tool.",
+    "status": "vendor-reference",
+    "priority": "7",
+    "model_type": "vendor-component",
+    "primary_datum": "torch-mount-datum",
+    "target_envelope_x": null,
+    "target_envelope_y": null,
+    "target_envelope_z": null,
+    "spec_notes": "Reference component only until exact torch variant and mounting dimensions are confirmed.",
+    "reference_ids": "REF-TORCH-SPEC"
+  },
+  "features": [
+    {
+      "feature_id": "FEAT-TORCH-SLEEVE-RACK",
+      "part_id": "PART-TORCH",
+      "name": "Positioning sleeve rack",
+      "description": "Vendor rack interface associated with torch Z positioning.",
+      "required": "yes",
+      "feature_kind": "vendor-interface",
+      "dimensions_or_intent": "32 pitch/module approximately 0.8 mm per project notes; verify exact torch part.",
+      "interface_name": "TorchRack",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Reference spec is project research, not verified customer hardware.",
+      "constraints": []
+    }
+  ],
+  "constraints": [],
+  "references": [
+    {
+      "reference_id": "REF-TORCH-SPEC",
+      "part_id": "PART-TORCH",
+      "path": "drawings/powermax65_cnc_torch_spec.md",
+      "document_type": "vendor-reference-summary",
+      "description": "Torch configuration and CNC interfaces.",
+      "authority": "research-summary",
+      "notes": "Verify exact customer torch model against primary vendor documentation."
+    }
+  ],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Parts",
+      "Features",
+      "Constraints",
+      "References"
+    ]
+  }
+}

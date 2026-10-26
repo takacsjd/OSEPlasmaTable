@@ -1,0 +1,87 @@
+{
+  "$schema": "https://json-schema.org/draft/2020-12/schema",
+  "$id": "part.schema.json",
+  "title": "AI_CAD exported part specification",
+  "type": "object",
+  "required": ["schemaVersion", "units", "coordinateConvention", "targetEnvelope", "part", "features", "constraints", "references", "provenance"],
+  "properties": {
+    "schemaVersion": {
+      "const": 1
+    },
+    "units": {
+      "type": "object",
+      "required": ["length", "mass", "force", "angle", "time"],
+      "properties": {
+        "length": {"type": "string"},
+        "mass": {"type": "string"},
+        "force": {"type": "string"},
+        "angle": {"type": "string"},
+        "time": {"type": "string"}
+      }
+    },
+    "coordinateConvention": {"type": "string"},
+    "targetEnvelope": {
+      "type": "object",
+      "required": ["x", "y", "z", "units", "status"],
+      "properties": {
+        "x": {"type": ["number", "null"]},
+        "y": {"type": ["number", "null"]},
+        "z": {"type": ["number", "null"]},
+        "units": {"type": "string"},
+        "status": {"enum": ["unspecified", "user-target"]}
+      }
+    },
+    "part": {
+      "type": "object",
+      "required": ["part_id", "name", "description", "role", "status", "model_type", "primary_datum"],
+      "properties": {
+        "part_id": {"type": "string", "minLength": 1},
+        "name": {"type": "string", "minLength": 1},
+        "description": {"type": ["string", "null"]},
+        "role": {"type": ["string", "null"]},
+        "status": {"type": ["string", "null"]},
+        "model_type": {"type": ["string", "null"]},
+        "primary_datum": {"type": ["string", "null"]},
+        "spec_notes": {"type": ["string", "null"]},
+        "reference_ids": {"type": ["string", "null"]}
+      },
+      "additionalProperties": true
+    },
+    "features": {
+      "type": "array",
+      "items": {
+        "type": "object",
+        "required": ["feature_id", "part_id", "name", "description", "required", "feature_kind"],
+        "properties": {
+          "feature_id": {"type": "string", "minLength": 1},
+          "part_id": {"type": "string", "minLength": 1},
+          "name": {"type": "string", "minLength": 1},
+          "description": {"type": ["string", "null"]},
+          "required": {"enum": ["yes", "no", "undecided"]},
+          "feature_kind": {"type": ["string", "null"]},
+          "dimensions_or_intent": {"type": ["string", "number", "null"]},
+          "interface_name": {"type": ["string", "null"]},
+          "constraints": {"type": "array"}
+        },
+        "additionalProperties": true
+      }
+    },
+    "constraints": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "references": {
+      "type": "array",
+      "items": {"type": "object"}
+    },
+    "provenance": {
+      "type": "object",
+      "required": ["workbook", "sheets"],
+      "properties": {
+        "workbook": {"type": "string"},
+        "sheets": {"type": "array", "items": {"type": "string"}}
+      }
+    }
+  },
+  "additionalProperties": false
+}

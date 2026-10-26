@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "units": {
+    "length": "mm",
+    "mass": "kg",
+    "force": "N",
+    "angle": "deg",
+    "time": "s"
+  },
+  "coordinateConvention": "Z up; define machine X/Y orientation before assembly modeling.",
+  "targetEnvelope": {
+    "x": null,
+    "y": null,
+    "z": null,
+    "units": "mm",
+    "status": "unspecified"
+  },
+  "part": {
+    "part_id": "PART-LIFT",
+    "name": "Table height lift",
+    "description": "Telescoping guides, cable/pulley assistance, counterweight, and positive locking pins.",
+    "role": "Raises/lowers table and holds selected height.",
+    "status": "candidate",
+    "priority": "4",
+    "model_type": "assembly",
+    "primary_datum": "lift-base-datum",
+    "target_envelope_x": null,
+    "target_envelope_y": null,
+    "target_envelope_z": null,
+    "spec_notes": "Concept notes describe square-tube guides, cable/counterweight, and pin locking. Prior lift calculations assumed a shallower 100 mm water depth and need updating.",
+    "reference_ids": "REF-README"
+  },
+  "features": [
+    {
+      "feature_id": "FEAT-LIFT-GUIDES",
+      "part_id": "PART-LIFT",
+      "name": "Telescoping guide columns",
+      "description": "Guide table motion while maintaining alignment.",
+      "required": "yes",
+      "feature_kind": "linear-guide",
+      "dimensions_or_intent": "Nested square tubes with bearing guidance; sizes and stroke TBD.",
+      "interface_name": "LiftGuideAxis",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Pinch points and buckling/stability require engineering review.",
+      "constraints": []
+    },
+    {
+      "feature_id": "FEAT-LIFT-CABLE",
+      "part_id": "PART-LIFT",
+      "name": "Cable and pulley assist",
+      "description": "Counterweight-assisted manual lift concept.",
+      "required": "yes",
+      "feature_kind": "lift-interface",
+      "dimensions_or_intent": "Cable routing, pulley geometry, and rated hardware TBD.",
+      "interface_name": "LiftCablePath",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Existing lift calculations predate current 140 mm tank depth.",
+      "constraints": []
+    },
+    {
+      "feature_id": "FEAT-LIFT-PINS",
+      "part_id": "PART-LIFT",
+      "name": "Height lock pins",
+      "description": "Positive mechanical locks at discrete table heights.",
+      "required": "yes",
+      "feature_kind": "locking-interface",
+      "dimensions_or_intent": "Pin count, size, material, and hole positions TBD.",
+      "interface_name": "HeightLock",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Do not treat counterweight/cable as the sole support at rest.",
+      "constraints": []
+    }
+  ],
+  "constraints": [],
+  "references": [
+    {
+      "reference_id": "REF-README",
+      "part_id": null,
+      "path": "README.md",
+      "document_type": "project-summary",
+      "description": "Project brief, current envelope, water-table dimensions, and decision log.",
+      "authority": "project-notes",
+      "notes": "Contains a mixture of confirmed customer data and evolving design notes."
+    }
+  ],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Parts",
+      "Features",
+      "Constraints",
+      "References"
+    ]
+  }
+}

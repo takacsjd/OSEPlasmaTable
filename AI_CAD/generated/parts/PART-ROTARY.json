@@ -1,0 +1,70 @@
+{
+  "schemaVersion": 1,
+  "units": {
+    "length": "mm",
+    "mass": "kg",
+    "force": "N",
+    "angle": "deg",
+    "time": "s"
+  },
+  "coordinateConvention": "Z up; define machine X/Y orientation before assembly modeling.",
+  "targetEnvelope": {
+    "x": null,
+    "y": null,
+    "z": null,
+    "units": "mm",
+    "status": "unspecified"
+  },
+  "part": {
+    "part_id": "PART-ROTARY",
+    "name": "Tube rotary axis",
+    "description": "Optional fourth-axis fixture for tube plasma cutting.",
+    "role": "Supports and rotates tube stock.",
+    "status": "future",
+    "priority": "10",
+    "model_type": "assembly",
+    "primary_datum": "rotary-axis-datum",
+    "target_envelope_x": null,
+    "target_envelope_y": null,
+    "target_envelope_z": null,
+    "spec_notes": "Customer wishlist only; tube range, chuck/support, drive, and removable mounting interface are undefined.",
+    "reference_ids": "REF-README"
+  },
+  "features": [
+    {
+      "feature_id": "FEAT-ROTARY-CHUCK",
+      "part_id": "PART-ROTARY",
+      "name": "Tube support and rotation",
+      "description": "Supports and rotates tube stock for fourth-axis cutting.",
+      "required": "no",
+      "feature_kind": "rotary-interface",
+      "dimensions_or_intent": "Stock diameter, length, chuck, tail support, and axis position TBD.",
+      "interface_name": "TubeAxis",
+      "constraint_ids": null,
+      "status": "open",
+      "notes": "Wishlist only.",
+      "constraints": []
+    }
+  ],
+  "constraints": [],
+  "references": [
+    {
+      "reference_id": "REF-README",
+      "part_id": null,
+      "path": "README.md",
+      "document_type": "project-summary",
+      "description": "Project brief, current envelope, water-table dimensions, and decision log.",
+      "authority": "project-notes",
+      "notes": "Contains a mixture of confirmed customer data and evolving design notes."
+    }
+  ],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Parts",
+      "Features",
+      "Constraints",
+      "References"
+    ]
+  }
+}

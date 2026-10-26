@@ -1,0 +1,98 @@
+{
+  "schemaVersion": 1,
+  "units": {
+    "length": "mm",
+    "mass": "kg",
+    "force": "N",
+    "angle": "deg",
+    "time": "s"
+  },
+  "coordinateConvention": "Z up; define machine X/Y orientation before assembly modeling.",
+  "targetEnvelope": {
+    "x": null,
+    "y": null,
+    "z": null,
+    "units": "mm",
+    "status": "unspecified"
+  },
+  "part": {
+    "part_id": "PART-TORCH-Z",
+    "name": "Torch Z and breakaway mount",
+    "description": "Vertical torch slide, clamp/interface, and collision breakaway.",
+    "role": "Positions and protects the plasma torch.",
+    "status": "candidate",
+    "priority": "6",
+    "model_type": "assembly",
+    "primary_datum": "torch-axis-datum",
+    "target_envelope_x": null,
+    "target_envelope_y": null,
+    "target_envelope_z": null,
+    "spec_notes": "Hypertherm torch has its own positioning sleeve/rack; clamp and Z arrangement need physical dimensions and confirmation.",
+    "reference_ids": "REF-TORCH-SPEC"
+  },
+  "features": [
+    {
+      "feature_id": "FEAT-TORCHZ-SLIDE",
+      "part_id": "PART-TORCH-Z",
+      "name": "Torch vertical slide",
+      "description": "Provides torch height positioning and THC movement.",
+      "required": "yes",
+      "feature_kind": "linear-slide",
+      "dimensions_or_intent": "Stroke and guide arrangement TBD.",
+      "interface_name": "TorchZAxis",
+      "constraint_ids": null,
+      "status": "open",
+      "notes": "Plasma Z architecture is not the drilling feed axis by assumption.",
+      "constraints": []
+    },
+    {
+      "feature_id": "FEAT-TORCHZ-BREAKAWAY",
+      "part_id": "PART-TORCH-Z",
+      "name": "Breakaway interface",
+      "description": "Detects or limits damage from torch collision.",
+      "required": "yes",
+      "feature_kind": "safety-interface",
+      "dimensions_or_intent": "Trip direction, repeatability, sensing, and reset method TBD.",
+      "interface_name": "BreakawayMount",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Physical mechanism is not dimensioned.",
+      "constraints": []
+    },
+    {
+      "feature_id": "FEAT-TORCHZ-CLAMP",
+      "part_id": "PART-TORCH-Z",
+      "name": "Torch clamp",
+      "description": "Holds the machine torch sleeve in alignment.",
+      "required": "yes",
+      "feature_kind": "clamp",
+      "dimensions_or_intent": "Barrel and sleeve diameters must come from verified torch variant.",
+      "interface_name": "TorchMount",
+      "constraint_ids": null,
+      "status": "open",
+      "notes": "Use authoritative torch drawing or measurement.",
+      "constraints": []
+    }
+  ],
+  "constraints": [],
+  "references": [
+    {
+      "reference_id": "REF-TORCH-SPEC",
+      "part_id": "PART-TORCH",
+      "path": "drawings/powermax65_cnc_torch_spec.md",
+      "document_type": "vendor-reference-summary",
+      "description": "Torch configuration and CNC interfaces.",
+      "authority": "research-summary",
+      "notes": "Verify exact customer torch model against primary vendor documentation."
+    }
+  ],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Parts",
+      "Features",
+      "Constraints",
+      "References"
+    ]
+  }
+}

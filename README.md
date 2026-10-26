@@ -9,6 +9,16 @@ Design phase, started 2026-10-20. Customer spec sheet: `Plasma Table Constraints
 - `docs/`        — specs, decisions log, math-derivation.md
 - `reference/`   — vendor datasheets, torque curves
 - `spreadsheet/` — `constraints.xlsx` (customer + project constraints, live formulas)
+- `AI_CAD/`    — draft workbook-to-JSON workflow for AI-assisted FreeCAD part modeling
+
+## AI-assisted CAD workflow (draft)
+`AI_CAD/workflow.xlsx` is the editable project brief, constraints, part/feature
+registry, assembly-instance list, and reference index. Run
+`python AI_CAD\tools\export_workbook.py` from the repository root to validate
+it and refresh the JSON files in `AI_CAD/generated/`. The generated JSON is
+input for agent-guided FreeCAD macros; see `AI_CAD/WORKFLOW.md` and
+`.github/skills/ai-cad-workflow/SKILL.md`. Initial entries are projections
+from current notes and must be reviewed before treating them as approved design.
 
 ## Customer spec (from the ODS, 2026-10-21)
 | Item | Value |

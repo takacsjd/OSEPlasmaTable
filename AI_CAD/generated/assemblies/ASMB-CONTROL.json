@@ -1,0 +1,42 @@
+{
+  "schemaVersion": 1,
+  "assembly": {
+    "assembly_id": "ASMB-CONTROL",
+    "name": "Control and electrical system",
+    "description": "Motion control, THC, torch signals, and electrical cabinet.",
+    "status": "candidate",
+    "priority": "4",
+    "notes": "Non-geometric connections and electrical interfaces need separate definitions."
+  },
+  "instances": [
+    {
+      "instanceId": "INST-CONTROL",
+      "partId": "PART-CONTROL",
+      "name": "Control system",
+      "placement": {
+        "translation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "mm"
+        },
+        "rotation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "deg"
+        }
+      },
+      "placementStatus": "undefined"
+    }
+  ],
+  "connections": [],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Assemblies",
+      "Instances",
+      "Connections"
+    ]
+  }
+}

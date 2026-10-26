@@ -1,0 +1,139 @@
+{
+  "schemaVersion": 1,
+  "units": {
+    "length": "mm",
+    "mass": "kg",
+    "force": "N",
+    "angle": "deg",
+    "time": "s"
+  },
+  "coordinateConvention": "Z up; define machine X/Y orientation before assembly modeling.",
+  "targetEnvelope": {
+    "x": null,
+    "y": null,
+    "z": null,
+    "units": "mm",
+    "status": "unspecified"
+  },
+  "part": {
+    "part_id": "PART-GANTRY",
+    "name": "XY gantry and motion system",
+    "description": "Long-axis rails/drive, cross-axis gantry, carriage, and motors.",
+    "role": "Moves the tool across the work envelope.",
+    "status": "candidate",
+    "priority": "5",
+    "model_type": "assembly",
+    "primary_datum": "machine-origin",
+    "target_envelope_x": null,
+    "target_envelope_y": null,
+    "target_envelope_z": null,
+    "spec_notes": "HG20 guides and closed-loop NEMA 24 motors are under evaluation. Long axis rack preferred for speed; short-axis drive decision remains open.",
+    "reference_ids": "REF-AXIS-SIZING"
+  },
+  "features": [
+    {
+      "feature_id": "FEAT-GANTRY-RAILS",
+      "part_id": "PART-GANTRY",
+      "name": "HG20 guide rails",
+      "description": "Linear guidance along machine axes.",
+      "required": "yes",
+      "feature_kind": "linear-guide",
+      "dimensions_or_intent": "Two rails and two blocks per axis are documented concept; lengths and spacing TBD.",
+      "interface_name": "RailDatum",
+      "constraint_ids": "CON-HG20",
+      "status": "draft",
+      "notes": "Long axis travel/speed and rail alignment require sizing.",
+      "constraints": [
+        {
+          "constraint_id": "CON-HG20",
+          "scope": "device",
+          "target_id": null,
+          "name": "Linear guide family",
+          "operator": "=",
+          "value": "HG20",
+          "minimum": null,
+          "maximum": null,
+          "units": null,
+          "priority": "preferred",
+          "status": "draft",
+          "rationale": "Current X/Y guideway direction; final rail/block layout is open.",
+          "source_ref": "REF-AXIS-SIZING"
+        }
+      ]
+    },
+    {
+      "feature_id": "FEAT-GANTRY-DRIVE",
+      "part_id": "PART-GANTRY",
+      "name": "Rack or ballscrew drives",
+      "description": "Transmits motor torque to axis carriages.",
+      "required": "yes",
+      "feature_kind": "linear-drive",
+      "dimensions_or_intent": "Rack preferred for long axis; short axis drive not decided.",
+      "interface_name": "DriveAxis",
+      "constraint_ids": "CON-XY-RAPID",
+      "status": "draft",
+      "notes": "Do not assume a final tooth count or screw lead.",
+      "constraints": [
+        {
+          "constraint_id": "CON-XY-RAPID",
+          "scope": "device",
+          "target_id": null,
+          "name": "Desired plasma travel speed",
+          "operator": ">=",
+          "value": 15,
+          "minimum": null,
+          "maximum": null,
+          "units": "m/min",
+          "priority": "preferred",
+          "status": "draft",
+          "rationale": "Sizing notes use 15 m/min; confirm whether this is a hard requirement.",
+          "source_ref": "REF-AXIS-SIZING"
+        }
+      ]
+    },
+    {
+      "feature_id": "FEAT-GANTRY-MOTOR",
+      "part_id": "PART-GANTRY",
+      "name": "Closed-loop stepper motors",
+      "description": "Axis actuation with encoder feedback.",
+      "required": "yes",
+      "feature_kind": "motor-mount",
+      "dimensions_or_intent": "NEMA 24, 4 Nm motor under evaluation.",
+      "interface_name": "MotorMount",
+      "constraint_ids": null,
+      "status": "draft",
+      "notes": "Exact motor SKU/mounting pattern should be referenced.",
+      "constraints": []
+    }
+  ],
+  "constraints": [],
+  "references": [
+    {
+      "reference_id": "REF-AXIS-SIZING",
+      "part_id": "PART-GANTRY",
+      "path": "calc/axis-sizing.md",
+      "document_type": "engineering-calculation",
+      "description": "X/Y sizing, drive comparison, and speed considerations.",
+      "authority": "engineering-note",
+      "notes": "Review assumptions before treating calculations as released design."
+    },
+    {
+      "reference_id": "REF-MOTOR-STEP",
+      "part_id": "PART-GANTRY",
+      "path": "drawings/24HS40-5004D-E1000.STEP",
+      "document_type": "vendor-cad",
+      "description": "NEMA 24 motor STEP model.",
+      "authority": "vendor-model",
+      "notes": "Check orientation and exact motor variant."
+    }
+  ],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Parts",
+      "Features",
+      "Constraints",
+      "References"
+    ]
+  }
+}

@@ -1,0 +1,62 @@
+{
+  "schemaVersion": 1,
+  "assembly": {
+    "assembly_id": "ASMB-PLASMA",
+    "name": "Plasma tool head",
+    "description": "Torch Z/breakaway assembly carrying the vendor torch.",
+    "status": "candidate",
+    "priority": "3",
+    "notes": "Torch variant, stroke, and clamp dimensions need confirmation."
+  },
+  "instances": [
+    {
+      "instanceId": "INST-PLASMA-Z",
+      "partId": "PART-TORCH-Z",
+      "name": "Torch Z assembly",
+      "placement": {
+        "translation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "mm"
+        },
+        "rotation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "deg"
+        }
+      },
+      "placementStatus": "undefined"
+    },
+    {
+      "instanceId": "INST-PLASMA-TORCH",
+      "partId": "PART-TORCH",
+      "name": "Machine torch",
+      "placement": {
+        "translation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "mm"
+        },
+        "rotation": {
+          "x": null,
+          "y": null,
+          "z": null,
+          "units": "deg"
+        }
+      },
+      "placementStatus": "undefined"
+    }
+  ],
+  "connections": [],
+  "provenance": {
+    "workbook": "AI_CAD/workflow.xlsx",
+    "sheets": [
+      "Assemblies",
+      "Instances",
+      "Connections"
+    ]
+  }
+}
