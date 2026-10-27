@@ -89,7 +89,7 @@ constraints:
   status: confirmed
   provenance: README water bed section
 measured:
-  date: '2026-10-26'
+  date: '2026-10-27'
   bbox_mm:
   - 1712.0
   - 1712.0

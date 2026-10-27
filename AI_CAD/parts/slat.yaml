@@ -16,9 +16,10 @@ parameters:
     unit: mm
     note: Spans the full clear width
   width:
-    value: 30
+    value: 1.5
     unit: mm
     constraint_id: CON-SLAT-WIDTH
+    note: 1.5 mm sheet-metal blade (was 30 mm solid bar); this X-thickness passes through the runner slit
   body_bottom:
     value: 55
     unit: mm
@@ -94,13 +95,13 @@ instances:
   - 0
 constraints:
 - id: CON-SLAT-WIDTH
-  description: Slat width (X)
-  value: 30
+  description: Slat blade thickness (X) - 1.5 mm sheet metal
+  value: 1.5
   unit: mm
   operator: <=
-  priority: preferred
+  priority: hard
   status: confirmed
-  provenance: Design choice 2026-10-26
+  provenance: User spec 2026-10-27, 1.5 mm sheet metal
 - id: CON-SLAT-TOOTH
   description: Shark-tooth point contact with workpiece
   priority: hard
@@ -137,9 +138,9 @@ constraints:
   status: confirmed
   provenance: Design choice 2026-10-26
 measured:
-  date: '2026-10-26'
+  date: '2026-10-27'
   count: 11
-  mass_total_kg: 213.59
+  mass_total_kg: 10.68
   valid: true
   tooth_tip_Z: 112.0
   tip_below_rim_mm: 28.0

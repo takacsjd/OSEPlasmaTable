@@ -28,9 +28,9 @@ parameters:
     unit: mm
     note: Runner bottom; top = 55 + 40 = 95
   slit_clearance:
-    value: 2
+    value: 0.5
     unit: mm
-    note: Clearance each side of slat (slat 30 -> slot 34)
+    note: Clearance each side of 1.5 mm slat (slit width = 1.5 + 2*0.5 = 2.5 mm)
   slit_count:
     value: 11
     unit: count
@@ -86,9 +86,9 @@ constraints:
   status: confirmed
   provenance: Design choice 2026-10-26
 measured:
-  date: '2026-10-26'
+  date: '2026-10-27'
   count: 3
-  mass_total_kg: 49.96
+  mass_total_kg: 63.02
   valid: true
 references:
 - path: trough.yaml
