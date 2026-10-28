@@ -172,6 +172,30 @@ Status lifecycle:
 `open → proposed → confirmed → locked` (for constraints)
 `proposed → testing → confirmed | rejected` (for candidates)
 
+## Object catalog (listing + per-piece writing space)
+
+Every object is listed with its description and measured data:
+
+```
+python AI_CAD/tools/objects.py list            # all objects: ID, name, mass, description
+python AI_CAD/tools/objects.py show PART-SLAT  # full spec + notes for one object
+python AI_CAD/tools/objects.py note PART-SLAT "text" [--who jon]   # dated scratchpad entry
+python AI_CAD/tools/objects.py desc PART-SLAT "new description"     # set what the piece IS
+python AI_CAD/tools/objects.py new PART-GANTRY "X gantry"           # scaffold a new part
+```
+
+Each part YAML has a `description:` field (what the piece is / why it
+exists) and an append-only dated `notes:` list (decisions, questions,
+change history). `build_table.py` keeps the `measured:` block current;
+`objects.py` keeps description/notes current.
+
+## Scope split
+
+`scope.yaml` records the responsibility split (2026-10-27): user provides
+actuators, motor controls, system control (the open-source target); site
+provides metal, lead screws, plasma source, air source, and arc-sense
+voltage measurement. Design implications live in that file.
+
 ## Legacy
 
 `AI_CAD/legacy/` holds the old xlsx/JSON/macro system (openpyxl workbook,
@@ -181,11 +205,11 @@ holds the full part catalog (gantry, torch, rotary, etc.) that will be
 converted to per-part YAML as each part is worked. Nothing in the live loop
 reads from it; the openpyxl dependency is gone from the active tooling.
 
-## Measured Results (2026-10-26)
+## Measured Results (current, 2026-10-27)
 
 | Part | Count | Mass (kg) | Valid | Notes |
 |---|---|---|---|---|
 | Trough | 1 | 183.15 | ✓ | 1712×1712×146 mm outer, ~387 L water |
-| Runner | 3 | 49.96 | ✓ | 40×40 mm, full-height through-slits |
-| Slat | 11 | 213.59 | ✓ | Shark-tooth, tips at Z=112 (28 mm below rim) |
-| **Total** | **15** | **446.7** | **✓** | **Zero interference, 16/16 constraints PASS** |
+| Runner | 3 | 63.02 | ✓ | 40×40 mm, 2.5 mm wide through-slits |
+| Slat | 11 | 10.68 | ✓ | 1.5 mm sheet blade, shark-tooth, tips at Z=112 |
+| **Total** | **15** | **256.8** | **✓** | **Zero interference, 16/16 constraints PASS** |

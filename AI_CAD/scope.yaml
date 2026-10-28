@@ -1,0 +1,40 @@
+# RESPONSIBILITY SPLIT — who provides what (user spec 2026-10-27)
+# This governs design decisions: everything on the SITE side must be
+# design-around (fixed interfaces); everything on the USER side is ours
+# to design and open source.
+
+provided_by_user:
+  - actuators              # motors for X/Y/Z motion
+  - motor_controls         # drivers / FOC / stepper electronics
+  - system_control         # controller, firmware, real-time THC, G-code path
+note_user: >
+  The control stack is the open-source target of this project
+  (real-time THC, local control not dependent on the PC).
+  Design must expose clean interfaces: axis signals, limit/endstop inputs,
+  THCAD in/out, torch enable, arc-sense.
+
+provided_by_site:
+  - metal                  # structural steel for frame/gantry as required
+  - lead_screws            # drives are site-supplied, not ours to spec
+  - other_mechanical       # "metal etc required" — site sources hardware
+  - plasma_source          # consistent with Powermax 65 + CPC in torch spec
+  - air_source             # compressed air / gas supply
+  - thc_instrumentation    # torch height control voltage measurement (arc sense)
+
+design_implications:
+  - >
+    Lead screw pitches are NOT ours to choose -> Z steps/mm must be
+    parameterized per site, not hardcoded.
+  - >
+    THC front-end (Mesa THCAD-10) consumes the site's arc-sense voltage;
+    our firmware owns the closed loop on top of it.
+  - >
+    Frame/gantry geometry must tolerate site-sourced metal tolerances;
+    keep interfaces bolted, not welded-precise, where practical.
+  - >
+    Air source and plasma source are fixed: no design may assume different
+    power/amperage characteristics than Powermax 65 + site air.
+
+provenance:
+  source: User spec 2026-10-27
+  status: confirmed
