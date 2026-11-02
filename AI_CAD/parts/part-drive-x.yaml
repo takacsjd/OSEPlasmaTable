@@ -1,0 +1,30 @@
+# NOTE: description/notes/measured blocks maintained by tools/objects.py + build_table.py
+part_id: PART-DRIVE-X
+name: X-axis drive module (motor+pinion+rack+carriage)
+status: proposed
+role: null
+description: <what this piece is, why it exists, how it fits the system>
+material: null
+parameters: null
+instances:
+- inst_id: PART-DRIVE-X-INST-0
+  placement:
+  - 0
+  - 0
+  - 0
+constraints: null
+measured: null
+notes:
+- date: 2026-11-02
+  author: jon
+  text: scaffolded
+- date: '2026-11-02'
+  author: hermes
+  text: '2026-11-02: CAD rendered (gantry_module.step/FCStd). Module 2, 12T, 48mm pitch dia pinion; motor
+    24HS40-5004D 4Nm; HG50 carriage; static replaceable rack on steel feature; preload block placeholder.
+    Y = 2x this (dual drive).'
+references:
+- path: ../global.yaml
+provenance:
+  source: scaffolded 2026-11-02
+  built_by: pending
