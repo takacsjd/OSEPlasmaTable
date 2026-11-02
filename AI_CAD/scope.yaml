@@ -15,16 +15,42 @@ note_user: >
 
 provided_by_site:
   - metal                  # structural steel for frame/gantry as required
-  - lead_screws            # drives are site-supplied, not ours to spec
+  - lead_screws            # site-supplied; with XY on rack & pinion,
+                           # leadscrews apply to Z / other drives
   - other_mechanical       # "metal etc required" — site sources hardware
-  - plasma_source          # consistent with Powermax 65 + CPC in torch spec
+  - plasma_source          # Hypertherm Powermax 65 + Duramax 180 machine torch
   - air_source             # compressed air / gas supply
   - thc_instrumentation    # torch height control voltage measurement (arc sense)
 
+confirmed_decisions:
+  - id: DEC-TORCH-BRAND
+    decision: >
+      Torch is Hypertherm: Powermax 65, Duramax 180 full-length machine torch,
+      CPC port, 32-pitch gear rack (MRT, P/N 228738), cap sensor for breakaway.
+    status: confirmed
+    date: 2026-10-27
+    reference: drawings/powermax65_cnc_torch_spec.md
+  - id: DEC-XY-DRIVE
+    decision: "XY gantry drives are rack & pinion (both axes)"
+    status: confirmed
+    date: 2026-10-27
+    reference: calc/axis-sizing.md
+  - id: DEC-BED-LIFT
+    decision: >
+      Bed raise/lower is the cable/pulley + counterweight system
+      (manual assist; positive locking pins are the safety device).
+    status: confirmed
+    date: 2026-10-27
+
 design_implications:
   - >
-    Lead screw pitches are NOT ours to choose -> Z steps/mm must be
-    parameterized per site, not hardcoded.
+    XY axes drive by rack & pinion: pinion on the carriage, full-length rack
+    on the frame. Motor + pinion geometry must be parametric per site rack
+    pitch/teeth; do not hardcode module or tooth count.
+  - >
+    Lead screw pitches are NOT ours to choose; with rack & pinion on XY the
+    leadscrews apply to Z / other drives -> steps/mm must be parameterized
+    per site, not hardcoded.
   - >
     THC front-end (Mesa THCAD-10) consumes the site's arc-sense voltage;
     our firmware owns the closed loop on top of it.
@@ -33,7 +59,10 @@ design_implications:
     keep interfaces bolted, not welded-precise, where practical.
   - >
     Air source and plasma source are fixed: no design may assume different
-    power/amperage characteristics than Powermax 65 + site air.
+    power/amperage characteristics than Hypertherm Powermax 65 + site air.
+  - >
+    Bed lift: cable/pulley + counterweight assists the heavy water bed;
+    locking pins remain the sole reliable support at rest.
 
 provenance:
   source: User spec 2026-10-27

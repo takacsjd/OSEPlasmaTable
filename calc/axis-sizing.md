@@ -71,20 +71,28 @@ decider.** HG20 rails: 2 blocks ≈ 73 kN static vs ≤150 N demand — ~1 % use
 - If rack: **module 1, 12–16 teeth** (38–75 mm/rev) → 15 m/min at 200–400 rpm,
   inside the motor's flat-torque band.
 
-## Verdict (v3)
-1. X/Y force demand is **20–150 N** (derived above); **both drives pass both
-   regimes with margin** — the 2000 N drilling load is carried by Z only.
-2. The real trade is **precision (ballscrew) vs simplicity/cost/full-length
-   (rack)** for a light-use guild table.
-3. Recommendation: **rack & pinion (m1, 12–16 T) is adequate and simpler**;
-   **ballscrew 20 mm lead if engraving precision is the priority**.
-   Either way: 4 Nm NEMA 24, HG20 rails, light carriage.
-4. Z drilling axis: `calc/z-axis-spindle.md` (2000 N feed, self-locking
+## Verdict (v4 — decisions confirmed 2026-10-27)
+
+**CONFIRMED DECISIONS (user spec 2026-10-27, see `AI_CAD/scope.yaml`):**
+- **XY drives: rack & pinion (both axes)** — the trade table above resolves in
+  favor of the simpler option; site supplies the rack, pinion geometry is
+  parametric per rack pitch/teeth.
+- **Torch: Hypertherm** — Powermax 65, Duramax 180° full-length machine torch,
+  CPC, 32-pitch gear rack (MRT). Site-provided.
+  (`drawings/powermax65_cnc_torch_spec.md`)
+- **Bed lift: cable/pulley + counterweight** (manual assist, pin locking).
+
+v3 technical conclusions that still stand:
+1. X/Y force demand is **20–150 N** (derived above); drives pass both
+   regimes with margin — the 2000 N drilling load is carried by Z only.
+2. Z drilling axis: `calc/z-axis-spindle.md` (2000 N feed, self-locking
    2.5 mm lead screw, 51217 thrust bearing, off-axis Flipsky + belt).
+3. Torch note: v3 sizing assumed a 15 m/min travel (Hypertherm 45 era);
+   re-check against Powermax 65 travel speed when the torch spec is final.
 
 ## Open
-- **X/Y stroke lengths (mm)** → screw length / rack length / mid-support needs.
-- Decision: rack vs ballscrew (see trade table).
+- **X/Y stroke lengths (mm)** → rack length / mid-support needs.
+- Carriage stack-up incl. Hypertherm Duramax torch mass.
 - Torch height control (Z) — see z-axis-spindle.md.
 
 ## Reference

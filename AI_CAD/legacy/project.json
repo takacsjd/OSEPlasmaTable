@@ -400,7 +400,7 @@
       "target_envelope_x": null,
       "target_envelope_y": null,
       "target_envelope_z": null,
-      "spec_notes": "Concept notes describe square-tube guides, cable/counterweight, and pin locking. Prior lift calculations assumed a shallower 100 mm water depth and need updating.",
+      "spec_notes": "CONFIRMED 2026-10-27: cable/pulley assist + counterweight is the active lift approach (manual, positive locking pins as safety). Prior lift calculations assumed a shallower 100 mm water depth and need updating for 140 mm.",
       "reference_ids": "REF-README"
     },
     {
@@ -415,7 +415,7 @@
       "target_envelope_x": null,
       "target_envelope_y": null,
       "target_envelope_z": null,
-      "spec_notes": "HG20 guides and closed-loop NEMA 24 motors are under evaluation. Long axis rack preferred for speed; short-axis drive decision remains open.",
+      "spec_notes": "CONFIRMED 2026-10-27: rack & pinion drives on both XY axes. HG20 guides and closed-loop NEMA 24 motors as per calc/axis-sizing.md (v3). Pinion teeth/pitch parametric per site rack.",
       "reference_ids": "REF-AXIS-SIZING"
     },
     {
@@ -445,7 +445,7 @@
       "target_envelope_x": null,
       "target_envelope_y": null,
       "target_envelope_z": null,
-      "spec_notes": "Reference component only until exact torch variant and mounting dimensions are confirmed.",
+      "spec_notes": "CONFIRMED 2026-10-27: Hypertherm Powermax 65, Duramax 180 full-length machine torch, CPC port, 32-pitch gear rack (MRT, P/N 228738), cap sensor for breakaway. Customer-supplied. See drawings/powermax65_cnc_torch_spec.md.",
       "reference_ids": "REF-TORCH-SPEC"
     },
     {
