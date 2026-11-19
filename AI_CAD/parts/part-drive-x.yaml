@@ -23,6 +23,11 @@ notes:
   text: '2026-11-02: CAD rendered (gantry_module.step/FCStd). Module 2, 12T, 48mm pitch dia pinion; motor
     24HS40-5004D 4Nm; HG50 carriage; static replaceable rack on steel feature; preload block placeholder.
     Y = 2x this (dual drive).'
+- date: '2026-11-19'
+  author: jon
+  text: '2026-11-05 update: pinion+rack, steppers, controllers ordered — drive work can proceed while
+    structure drawings are hand-drawn. Frame concept moving to modular interlocking plasma-cut plates
+    (see docs/modular-plates.md).'
 references:
 - path: ../global.yaml
 provenance:

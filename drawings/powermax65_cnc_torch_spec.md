@@ -88,6 +88,16 @@ For a Powermax 65 arc at ~139 V:
 - `powermax65_operator_manual_806650.pdf` (6 MB, rev 4) — full operator manual with torch setup, gear rack, parts, cut charts
 - `mesa_thcad_manual.pdf` (105 KB) — THCAD-5/10/300 manual with divider math, pinout, isolation specs
 
+## Torch inventory note (photo 2026-11-05)
+Torch on hand: **Hypertherm Duramax series** — straight cylindrical
+machine-type torch (not a pistol grip), copper nozzle tip, "Duramax Lock"
+connector (IEC 60974-7) on a coiled lead. Form factor is consistent with the
+**Duramax 180° full-length machine torch** required for CNC/Z. Serial/part
+label present at torch base but not legible in the photo — a close crop is
+needed to confirm the exact model. **TODO: confirm the 32-pitch MRT gear-rack
+sleeve is present on the barrel** (side view) — that is what makes it a
+true CNC machine torch and is the prerequisite for the Z-axis drive.
+
 ## Open items
 - [ ] Confirm the customer's Powermax 65 is the **SYNC** version (CPC port) — not the older 2-wire pilot version
 - [ ] Order the Mesa THCAD boards + divider resistors

@@ -1,4 +1,4 @@
-# NOTE: measured block auto-updated by tools/build_table.py
+# NOTE: description/notes/measured blocks maintained by tools/objects.py + build_table.py
 part_id: PART-TROUGH
 name: Plasma table trough (water bed)
 status: active
@@ -109,3 +109,8 @@ provenance:
   source: User conversation 2026-10-20 through 2026-10-26
   built_by: Hermes Agent + FreeCAD 1.1.3 MCP bridge
   last_measured: '2026-10-26'
+notes:
+- date: '2026-11-19'
+  author: hermes
+  text: '2026-11-05: check if trough also becomes modular cut plates per new structure direction (open
+    question).'
