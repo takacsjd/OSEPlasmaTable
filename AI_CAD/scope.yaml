@@ -41,6 +41,16 @@ confirmed_decisions:
       (manual assist; positive locking pins are the safety device).
     status: confirmed
     date: 2026-10-27
+  - id: DEC-MODULAR-PLATES
+    decision: >
+      Entire structure broken into flat plates that interlock
+      (bolted, not welded) to form frame and structure components.
+      All plates plasma-cut from flat sheet — OSE-compliant and
+      enabling machine self-replication (the machine cuts its own
+      structure).
+    status: proposed-2026-11-05
+    date: 2026-11-05
+    reference: docs/modular-plates.md
 
 design_implications:
   - >
